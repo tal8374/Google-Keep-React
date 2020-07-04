@@ -19,9 +19,11 @@ import {
 } from "@material-ui/icons";
 import ProfilePopover from "./ProfilePopover";
 import SearchBar from "./SearchBar";
+import AppSideBar from "./AppSideBar/AppSideBar";
 
 import { useThemeStore } from '../../shared/contexts/themeContext'
 import { useListViewStore } from '../../shared/contexts/listViewProvider'
+import { useMenuBarStore } from '../../shared/contexts/menuBarProvider'
 
 const useStyles = makeStyles(theme => ({
     grow: {
@@ -82,6 +84,7 @@ export default function () {
     const isMobile = useMediaQuery(theme.breakpoints.down("xs"));
     const { isDarkMode, toggleDarkMode } = useThemeStore();
     const { isListView, toggleView } = useListViewStore();
+    const { isMenuBarOpen, toggleMenuBar } = useMenuBarStore();
 
     return (
         <div className={classes.grow}>
@@ -94,7 +97,7 @@ export default function () {
                         edge="start"
                         className={classes.menuButton}
                         aria-label="open drawer"
-                    // onClick={toggleNavBar}
+                        onClick={toggleMenuBar}
                     >
                         <MenuIcon htmlColor={theme.custom.palette.iconColor} />
                     </IconButton>
@@ -172,6 +175,7 @@ export default function () {
                     onClose={() => setProfilePopoverOpen(false)}
                 />
             </AppBar>
+                <AppSideBar/>
         </div>
     );
 }
