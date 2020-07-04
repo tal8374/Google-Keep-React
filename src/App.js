@@ -1,18 +1,21 @@
 import React, { Component } from 'react';
 
-import { ThemeProvider, CssBaseline } from "@material-ui/core";
-
-import { light } from "./shared/theme";
+import { CssBaseline } from "@material-ui/core";
 
 import AppNavBar from './parts/AppNavbar/AppNavbar'
+import { UserProvider } from './shared/contexts/userProvider'
+import { AppThemeProvider } from './shared/contexts/themeContext'
+
 
 class App extends Component {
   render() {
     return (
-      <ThemeProvider theme={light}>
+      <AppThemeProvider>
         <CssBaseline />
-        <AppNavBar />
-      </ThemeProvider>
+        <UserProvider>
+          <AppNavBar />
+        </UserProvider>
+      </AppThemeProvider>
     );
   }
 }

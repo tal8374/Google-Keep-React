@@ -20,6 +20,9 @@ import {
 // import ProfilePopover from "./ProfilePopover";
 import SearchBar from "./SearchBar";
 
+import { useUserStore } from '../../shared/contexts/userProvider'
+import { useThemeStore } from '../../shared/contexts/themeContext'
+
 const useStyles = makeStyles(theme => ({
     grow: {
         flexGrow: 1
@@ -77,8 +80,9 @@ export default function () {
         threshold: 0
     });
     const isMobile = useMediaQuery(theme.breakpoints.down("xs"));
-    const [isDarkMode, setIsDarkMode] = useState(false);
     const [isListView, setIsListView] = useState(false);
+    // const [{ isDarkMode }, {toggleDarkMode}] = useUserStore();
+    const {isDarkMode, toggleDarkMode} = useThemeStore();
 
     return (
         <div className={classes.grow}>
@@ -91,7 +95,7 @@ export default function () {
                         edge="start"
                         className={classes.menuButton}
                         aria-label="open drawer"
-                        // onClick={toggleNavBar}
+                    // onClick={toggleNavBar}
                     >
                         <MenuIcon htmlColor={theme.custom.palette.iconColor} />
                     </IconButton>
@@ -132,7 +136,7 @@ export default function () {
                         <IconButton
                             aria-label="toggle dark theme"
                             aria-controls={menuId}
-                            // onClick={onDarkModeToggle}
+                            onClick={toggleDarkMode}
                         >
                             {isDarkMode ? <ToggleLightModeIcon htmlColor={theme.custom.palette.iconColor} /> : <ToggleDarkModeIcon htmlColor={theme.custom.palette.iconColor} />}
                         </IconButton>
@@ -144,7 +148,7 @@ export default function () {
                                     isListView ? "toggle tile view" : "toggle list view"
                                 }
                                 aria-controls={menuId}
-                                // onClick={onViewToggle}
+                            // onClick={onViewToggle}
                             >
                                 {isListView ? <TileViewIcon htmlColor={theme.custom.palette.iconColor} /> : <ListIcon htmlColor={theme.custom.palette.iconColor} />}
                             </IconButton>
@@ -157,7 +161,7 @@ export default function () {
                             aria-label="account of current user"
                             aria-controls={menuId}
                             aria-haspopup="true"
-                            // onClick={() => setProfilePopoverOpen(true)}
+                        // onClick={() => setProfilePopoverOpen(true)}
                         >
                             <AccountsIcon htmlColor={theme.custom.palette.iconColor} />
                         </IconButton>
