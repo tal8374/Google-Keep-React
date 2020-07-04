@@ -17,11 +17,11 @@ import {
     Menu as MenuIcon,
     ViewAgendaOutlined as ListIcon
 } from "@material-ui/icons";
-// import ProfilePopover from "./ProfilePopover";
+import ProfilePopover from "./ProfilePopover";
 import SearchBar from "./SearchBar";
 
-import { useUserStore } from '../../shared/contexts/userProvider'
 import { useThemeStore } from '../../shared/contexts/themeContext'
+import { useListViewStore } from '../../shared/contexts/listViewProvider'
 
 const useStyles = makeStyles(theme => ({
     grow: {
@@ -80,9 +80,8 @@ export default function () {
         threshold: 0
     });
     const isMobile = useMediaQuery(theme.breakpoints.down("xs"));
-    const [isListView, setIsListView] = useState(false);
-    // const [{ isDarkMode }, {toggleDarkMode}] = useUserStore();
-    const {isDarkMode, toggleDarkMode} = useThemeStore();
+    const { isDarkMode, toggleDarkMode } = useThemeStore();
+    const { isListView, toggleView } = useListViewStore();
 
     return (
         <div className={classes.grow}>
@@ -142,13 +141,13 @@ export default function () {
                         </IconButton>
                     </div>
                     {isMobile ? null : (
-                        <div>
+                        <div onClick={toggleView}>
                             <IconButton
                                 aria-label={
                                     isListView ? "toggle tile view" : "toggle list view"
                                 }
                                 aria-controls={menuId}
-                            // onClick={onViewToggle}
+
                             >
                                 {isListView ? <TileViewIcon htmlColor={theme.custom.palette.iconColor} /> : <ListIcon htmlColor={theme.custom.palette.iconColor} />}
                             </IconButton>
@@ -161,17 +160,17 @@ export default function () {
                             aria-label="account of current user"
                             aria-controls={menuId}
                             aria-haspopup="true"
-                        // onClick={() => setProfilePopoverOpen(true)}
+                            onClick={() => setProfilePopoverOpen(true)}
                         >
                             <AccountsIcon htmlColor={theme.custom.palette.iconColor} />
                         </IconButton>
                     </div>
                 </Toolbar>
-                {/* <ProfilePopover
+                <ProfilePopover
                     anchorEl={profileMenuRef.current}
                     isOpen={isProfilePopoverOpen}
                     onClose={() => setProfilePopoverOpen(false)}
-                /> */}
+                />
             </AppBar>
         </div>
     );
@@ -188,7 +187,7 @@ function LogoContainer() {
                 variant="h6"
                 noWrap
             >
-                Google Notes
+                Keep
       </Typography>
         </div>
     );
