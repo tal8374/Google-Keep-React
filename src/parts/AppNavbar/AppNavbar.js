@@ -1,4 +1,4 @@
-import React, { useRef, useState, useCallback } from "react";
+import React, { useRef, useState } from "react";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import {
     AppBar,
@@ -67,7 +67,12 @@ const useStyles = makeStyles(theme => ({
             width: theme.spacing(90),
             marginLeft: theme.spacing(9)
         }
-    }
+    },
+    containerBorder: {
+        borderBottomStyle: "solid",
+        borderBottomWidth: "1px",
+        borderBottomColor: theme.palette.divider
+      },
 }));
 
 export default function () {
@@ -175,7 +180,6 @@ export default function () {
                     onClose={() => setProfilePopoverOpen(false)}
                 />
             </AppBar>
-                <AppSideBar/>
         </div>
     );
 }
