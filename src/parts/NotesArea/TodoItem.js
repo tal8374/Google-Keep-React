@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Paper, Fade, ClickAwayListener, useTheme } from "@material-ui/core";
-// import ActionsBar from "../todo/Actions";
-// import LabelsBar from "../todo/Labels";
-// import ContentTitle from "../todo/ContentTitle";
-// import Content from "../todo/Content";
+import ActionsBar from "../todo/ActionsBar";
+import LabelsBar from "../todo/Labels";
+import ContentTitle from "../todo/ContentTitle";
+import Content from "../todo/Content";
 // import { useUiStore, useTodosStore } from "../../store";
-import { useTodosStore } from "../../shared/contexts/todosProvider";
+import { useTodosStore, useNoteInEditModeStore } from "../../shared/contexts/todosProvider";
 // import { useMutation } from "urql";
 // import { updateTodo } from "../../gql";
 
@@ -45,6 +45,7 @@ export default function ({ noteItem, isEditMode }) {
     const [labels, setLabels] = useState(noteItem.labels);
     //   const [, { setNoteInEditMode }] = useUiStore();
     const [, dispatchTodo] = useTodosStore();
+    const {setNoteInEditMode} = useNoteInEditModeStore();
     //   const [, updateTodoExecute] = useMutation(updateTodo);
 
     const updateColor = (color) => {
@@ -90,30 +91,30 @@ export default function ({ noteItem, isEditMode }) {
         >
             <ClickAwayListener onClickAway={isEditMode ? (() => onAfterEdit()) : () => { }}>
                 <div
-                // onClick={() => setNoteInEditMode(noteItem.id)}
+                    onClick={() => setNoteInEditMode(noteItem.id)}
                 >
-                    {/* <ContentTitle title={title} setTitle={setTitle} isEditMode={isEditMode} /> */}
-                    {/* <Content
-            notes={noteinputs}
-            setNotes={setNotes}
-            isEditMode={isEditMode}
-            isCheckboxMode={isCheckboxMode}
-          /> */}
+                    <ContentTitle title={title} setTitle={setTitle} isEditMode={isEditMode} />
+                    <Content
+                        notes={noteinputs}
+                        setNotes={setNotes}
+                        isEditMode={isEditMode}
+                        isCheckboxMode={isCheckboxMode}
+                    />
                 </div>
             </ClickAwayListener>
-            {/* <LabelsBar labels={labels} /> */}
+            <LabelsBar labels={labels} />
             <Fade in={isHovered || isEditMode}>
                 <div className={classes.barWrapper}>
-                    {/* <ActionsBar
-            id={noteItem.id}
-            color={color}
-            setColor={updateColor}
-            labels={labels}
-            setLabels={updateLabels}
-            setCheckboxMode={updateCheckboxMode}
-            isCreateMode={false}
-            isCheckboxMode={isCheckboxMode}
-          /> */}
+                    <ActionsBar
+                        id={noteItem.id}
+                        color={color}
+                        setColor={updateColor}
+                        labels={labels}
+                        setLabels={updateLabels}
+                        setCheckboxMode={updateCheckboxMode}
+                        isCreateMode={false}
+                        isCheckboxMode={isCheckboxMode}
+                    />
                 </div>
             </Fade>
         </Paper>

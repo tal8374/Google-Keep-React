@@ -15,7 +15,7 @@ import { UserProvider } from './shared/contexts/userProvider'
 import { AppThemeProvider } from './shared/contexts/themeContext'
 import { ListViewProvider } from './shared/contexts/listViewProvider'
 import { MenuBarProvider } from './shared/contexts/menuBarProvider'
-import { LabelsProvider, TodosProvider, SelectedLabelProvider } from './shared/contexts/todosProvider'
+import { LabelsProvider, TodosProvider, SelectedLabelProvider, NoteInEditModeProvider } from './shared/contexts/todosProvider'
 
 class App extends Component {
   render() {
@@ -33,16 +33,18 @@ class App extends Component {
               <LabelsProvider>
                 <TodosProvider>
                   <SelectedLabelProvider>
-                    <CssBaseline />
-                    <UserProvider>
-                      <AppNavBar />
-                      <AppSideBar />
-                      <Container maxWidth={false}>
-                        <Box mt={8}>
-                          <NotesArea />
-                        </Box>
-                      </Container>
-                    </UserProvider>
+                    <NoteInEditModeProvider>
+                      <UserProvider>
+                        <CssBaseline />
+                        <AppNavBar />
+                        <AppSideBar />
+                        <Container maxWidth={false}>
+                          <Box mt={8}>
+                            <NotesArea />
+                          </Box>
+                        </Container>
+                      </UserProvider>
+                    </NoteInEditModeProvider>
                   </SelectedLabelProvider>
                 </TodosProvider>
               </LabelsProvider>

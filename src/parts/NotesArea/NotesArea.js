@@ -3,7 +3,7 @@ import { makeStyles, useTheme } from "@material-ui/core/styles";
 import TodoCreate from "./TodoCreate";
 import TodoItem from "./TodoItem";
 import { useMediaQuery } from "@material-ui/core";
-import { useTodosStore } from "../../shared/contexts/todosProvider";
+import { useTodosStore, useNoteInEditModeStore } from "../../shared/contexts/todosProvider";
 import { useMenuBarStore } from "../../shared/contexts/menuBarProvider";
 
 const useStyles = makeStyles(theme => ({
@@ -79,13 +79,16 @@ export default function () {
     const selectedLabelId = null;
     const { isMenuBarOpen } = useMenuBarStore();
     const [notesItems] = useTodosStore();
-    const filteredItems = notesItems.filter(item => {
-        if (selectedLabelId !== "") {
-            return item.labels.some((labelItem) => labelItem.id === selectedLabelId);
-        } else {
-            return true;
-        }
-    });
+    // const noteInEditMode = {};
+    const { noteInEditMode } = useNoteInEditModeStore();
+    // const filteredItems = notesItems.filter(item => {
+    //     if (selectedLabelId !== "") {
+    //         return item.labels.some((labelItem) => labelItem.id === selectedLabelId);
+    //     } else {
+    //         return true;
+    //     }
+    // });
+    const filteredItems = notesItems;
     width = isMenuBarOpen
         ? isLaptop || isLaptopL
             ? theme.spacing(75)
@@ -120,8 +123,7 @@ export default function () {
                             >
                                 <TodoItem
                                     noteItem={noteItem}
-                                    isEditMode={false}
-                                // isEditMode={noteInEditMode === noteItem.id}
+                                    isEditMode={noteInEditMode === noteItem.id}
                                 />
                             </div>
                         );

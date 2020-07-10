@@ -2,7 +2,7 @@ import React, { useState, useReducer, createContext, useContext } from 'react';
 
 const reducer = (state = [], action = {}) => {
     const mutatedItem = action.payload;
-    if (!mutatedItem) { return }
+    if (!mutatedItem) { return state}
     const mutatedIndex = state.findIndex((item) => item.id === mutatedItem.id);
     switch (action.type) {
         case "CREATED":
@@ -26,9 +26,10 @@ const reducer = (state = [], action = {}) => {
 const LabelsContext = createContext([]);
 const TodosContext = createContext([]);
 const SelectedLabelContext = createContext(null);
+const NoteInEditModeContext = createContext({});
 
 export function TodosProvider({ children }) {
-    const [state, dispatch] = useReducer(reducer, []);
+    const [state, dispatch] = useReducer(reducer, [{ title: "da", notes: Array(1), labels: Array(1), color: "default", isCheckboxMode: false }]);
     return <TodosContext.Provider value={[state, dispatch]}>{children}</TodosContext.Provider>;
 }
 
@@ -42,6 +43,12 @@ export function SelectedLabelProvider({ children }) {
     return <SelectedLabelContext.Provider value={{ selectedLabel, setSelectedLabel }}>{children}</SelectedLabelContext.Provider>;
 }
 
+export function NoteInEditModeProvider({ children }) {
+    const [noteInEditMode, setNoteInEditMode] = useState({})
+    return <NoteInEditModeContext.Provider value={{ noteInEditMode, setNoteInEditMode }}>{children}</NoteInEditModeContext.Provider>;
+}
+
 export const useLabelsStore = () => useContext(LabelsContext);
 export const useTodosStore = () => useContext(TodosContext);
 export const useSelectedLabelStore = () => useContext(SelectedLabelContext);
+export const useNoteInEditModeStore = () => useContext(NoteInEditModeContext);
