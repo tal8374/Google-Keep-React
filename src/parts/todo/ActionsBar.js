@@ -42,16 +42,18 @@ export default function ({ id, labels, setLabels, color, setColor, setCheckboxMo
   const [isColorPopoverOpen, setColorPopoverOpen] = useState(false);
   const [isLabelPopoverOpen, setLabelPopoverOpen] = useState(false);
   const [, dispatchTodo] = useTodosStore();
-//   const [, copyNoteExecute] = useMutation(copyTodo);
-//   const [, deleteNoteExecute] = useMutation(deleteTodo);
+  //   const [, copyNoteExecute] = useMutation(copyTodo);
+  //   const [, deleteNoteExecute] = useMutation(deleteTodo);
 
   const copyNote = () => {
+    dispatchTodo({ type: "COPY", payload: { id: id } });
     // copyNoteExecute({ id }).then(({ data }) => {
     //   dispatchTodo({ type: "CREATED", payload: data.copyTodo });
     // });
   }
 
   const deleteNote = () => {
+    dispatchTodo({ type: "DELETED", payload: { id: id } });
     // deleteNoteExecute({ id }).then(({ data }) => {
     //   dispatchTodo({ type: "DELETED", payload: data.deleteTodo });
     // });

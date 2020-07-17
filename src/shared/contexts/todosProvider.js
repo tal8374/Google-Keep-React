@@ -20,6 +20,13 @@ const reducer = (state = [], action = {}) => {
         case "UPDATED":
             state[mutatedIndex] = mutatedItem;
             break;
+        case "COPY":
+            let copiedObject = JSON.parse(JSON.stringify(state[mutatedIndex]));
+            console.log(copiedObject)
+            let copy = Object.assign({}, copiedObject, { id: uuidv4() });
+            console.log(copy)
+            state.push(copy);
+            break;
         default:
     }
     return [...state];
@@ -31,7 +38,7 @@ const SelectedLabelContext = createContext(null);
 const NoteInEditModeContext = createContext({});
 
 export function TodosProvider({ children }) {
-    const [state, dispatch] = useReducer(reducer, [{ id: 12345, title: "da", notes: [{text: 'newnewnew'}], labels: [{ id: 2, name: 'aab' }], color: "default", isCheckboxMode: false }]);
+    const [state, dispatch] = useReducer(reducer, [{ id: 12345, title: "da", notes: [{ text: 'newnewnew' }], labels: [{ id: 2, name: 'aab' }], color: "default", isCheckboxMode: false }]);
     return <TodosContext.Provider value={[state, dispatch]}>{children}</TodosContext.Provider>;
 }
 
