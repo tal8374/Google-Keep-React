@@ -84,8 +84,7 @@ export default function () {
 
     const filteredItems = notesItems.filter(item => {
         if (selectedLabel !== null) {
-            return true;
-            // return item.labels.some((labelItem) => labelItem.id === selectedLabel.id);
+            return item.labels.some((labelItem) => labelItem.id === selectedLabel.id);
         } else {
             return true;
         }
