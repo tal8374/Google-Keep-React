@@ -5,6 +5,7 @@ import TodoItem from "./TodoItem";
 import { useMediaQuery } from "@material-ui/core";
 import { useTodosStore, useNoteInEditModeStore } from "../../shared/contexts/todosProvider";
 import { useMenuBarStore } from "../../shared/contexts/menuBarProvider";
+import { useSelectedLabelStore } from '../../shared/contexts/todosProvider'
 
 const useStyles = makeStyles(theme => ({
     content: {
@@ -76,19 +77,19 @@ export default function () {
                 : isTablet
                     ? "480px"
                     : "100%";
-    const selectedLabelId = null;
+    const { selectedLabel } = useSelectedLabelStore();
     const { isMenuBarOpen } = useMenuBarStore();
     const [notesItems] = useTodosStore();
-    // const noteInEditMode = {};
     const { noteInEditMode } = useNoteInEditModeStore();
-    // const filteredItems = notesItems.filter(item => {
-    //     if (selectedLabelId !== "") {
-    //         return item.labels.some((labelItem) => labelItem.id === selectedLabelId);
-    //     } else {
-    //         return true;
-    //     }
-    // });
-    const filteredItems = notesItems;
+
+    const filteredItems = notesItems.filter(item => {
+        if (selectedLabel !== null) {
+            return true;
+            // return item.labels.some((labelItem) => labelItem.id === selectedLabel.id);
+        } else {
+            return true;
+        }
+    });
     width = isMenuBarOpen
         ? isLaptop || isLaptopL
             ? theme.spacing(75)

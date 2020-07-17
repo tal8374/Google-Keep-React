@@ -3,7 +3,7 @@ import { makeStyles, useTheme } from "@material-ui/core/styles";
 import { Paper, InputBase, Collapse, Button } from "@material-ui/core";
 // import TodoActions from "../todo/Actions";
 // import TodoLabels from "../todo/Labels";
-import TodoContent from "../todo/TodoContent";
+import TodoContent from "../todo/Content";
 // import { useMutation } from "urql";
 // import { createTodo } from "../../gql";
 import { useTodosStore } from "../../shared/contexts/todosProvider";
@@ -58,17 +58,17 @@ export default function () {
     //   const [, createTodoExecute] = useMutation(createTodo);
     const [isFocussed, setFocussed] = useState(false);
     const [title, setTitle] = useState("");
-    const [notes, setNotes] = useState(['sdasdasd']);
+    const [notes, setNotes] = useState(['']);
     const [color, setColor] = useState("default");
     const [isCheckboxMode, setCheckboxMode] = useState(false);
     const [labels, setLabels] = useState([]);
     const [, dispatchTodo] = useTodosStore();
     const onCloseClick = () => {
-        const noteTexts = notes.map(noteItem => noteItem.text);
+        let noteTexts = notes.map(noteItem => noteItem);
+        noteTexts = noteTexts.filter(noteText => !!noteText);
         const labelIds = labels.map(labelItem => labelItem.id);
         if (title || noteTexts.length > 0) {
-            console.log({ id: 1, type: "CREATED", payload: {title, notes: noteTexts, labels: [{ id: 1, name: 'aaa' }], color, isCheckboxMode} })
-            dispatchTodo({ id: 1, type: "CREATED", payload: {title, notes: noteTexts, labels: [{ id: 1, name: 'aaa' }], color, isCheckboxMode} });
+            dispatchTodo({ id: 1, type: "CREATED", payload: { title: title, notes: noteTexts, labels: [{ id: 1, name: 'aaa' }], color, isCheckboxMode } });
             //   createTodoExecute({ title, notes: noteTexts, labels: labelIds, color, isCheckboxMode }).then(({ data }) => {
             //     dispatchTodo({ type: "CREATED", payload: data.createTodo });
             //   });

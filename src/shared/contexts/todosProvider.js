@@ -1,8 +1,10 @@
 import React, { useState, useReducer, createContext, useContext } from 'react';
+const { v4: uuidv4 } = require('uuid');
 
 const reducer = (state = [], action = {}) => {
     const mutatedItem = action.payload;
-    if (!mutatedItem) { return state}
+    if (!mutatedItem) { return state }
+    mutatedItem.id = mutatedItem.id || uuidv4();
     const mutatedIndex = state.findIndex((item) => item.id === mutatedItem.id);
     switch (action.type) {
         case "CREATED":
@@ -29,12 +31,12 @@ const SelectedLabelContext = createContext(null);
 const NoteInEditModeContext = createContext({});
 
 export function TodosProvider({ children }) {
-    const [state, dispatch] = useReducer(reducer, [{ title: "da", notes: Array(1), labels: Array(1), color: "default", isCheckboxMode: false }]);
+    const [state, dispatch] = useReducer(reducer, [{ id: 12345, title: "da", notes: ['newnewnew'], labels: [{ id: 2, name: 'aab' }], color: "default", isCheckboxMode: false }]);
     return <TodosContext.Provider value={[state, dispatch]}>{children}</TodosContext.Provider>;
 }
 
 export function LabelsProvider({ children }) {
-    const [state, dispatch] = useReducer(reducer, [{ id: 1, name: 'aaa' }]);
+    const [state, dispatch] = useReducer(reducer, [{ id: 1, name: 'aaa' }, { id: 2, name: 'aab' }]);
     return <LabelsContext.Provider value={[state, dispatch]}>{children}</LabelsContext.Provider>;
 }
 

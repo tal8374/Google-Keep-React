@@ -45,7 +45,7 @@ export default function ({ noteItem, isEditMode }) {
     const [labels, setLabels] = useState(noteItem.labels);
     //   const [, { setNoteInEditMode }] = useUiStore();
     const [, dispatchTodo] = useTodosStore();
-    const {setNoteInEditMode} = useNoteInEditModeStore();
+    const { setNoteInEditMode } = useNoteInEditModeStore();
     //   const [, updateTodoExecute] = useMutation(updateTodo);
 
     const updateColor = (color) => {
@@ -65,7 +65,7 @@ export default function ({ noteItem, isEditMode }) {
 
     const onAfterEdit = () => {
         updateTodoItem({});
-        // setNoteInEditMode("")
+        setNoteInEditMode("")
     }
 
     const updateTodoItem = (todoItem) => {
@@ -93,13 +93,17 @@ export default function ({ noteItem, isEditMode }) {
                 <div
                     onClick={() => setNoteInEditMode(noteItem.id)}
                 >
-                    <ContentTitle title={title} setTitle={setTitle} isEditMode={isEditMode} />
-                    <Content
-                        notes={noteinputs}
-                        setNotes={setNotes}
-                        isEditMode={isEditMode}
-                        isCheckboxMode={isCheckboxMode}
-                    />
+                    <div>
+                        <ContentTitle title={title} setTitle={setTitle} isEditMode={isEditMode} />
+                    </div>
+                    <div>
+                        <Content
+                            notes={noteinputs}
+                            setNotes={setNotes}
+                            isEditMode={isEditMode}
+                            isCheckboxMode={isCheckboxMode}
+                        />
+                    </div>
                 </div>
             </ClickAwayListener>
             <LabelsBar labels={labels} />

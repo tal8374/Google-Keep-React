@@ -41,11 +41,11 @@ const useStyles = makeStyles(theme => ({
 
 export default function ({ notes, setNotes, isEditMode }) {
   const classes = useStyles();
-  const reducedText = notes.map(({ text }) => text).join("\n");
+  const reducedText = notes.join("\n");
 
   const onTextChanged = event => {
     const text = event.target.value;
-    const textParts = text.split("\n").map(text => ({ text: text, isCompleted: false }));
+    const textParts = text.split("\n");
     setNotes(textParts)
   };
 
