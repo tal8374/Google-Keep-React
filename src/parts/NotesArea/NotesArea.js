@@ -6,6 +6,7 @@ import { useMediaQuery } from "@material-ui/core";
 import { useTodosStore, useNoteInEditModeStore } from "../../shared/contexts/todosProvider";
 import { useMenuBarStore } from "../../shared/contexts/menuBarProvider";
 import { useSelectedLabelStore } from '../../shared/contexts/todosProvider'
+import { useListViewStore } from '../../shared/contexts/listViewProvider'
 
 const useStyles = makeStyles(theme => ({
     content: {
@@ -81,6 +82,7 @@ export default function () {
     const { isMenuBarOpen } = useMenuBarStore();
     const [notesItems] = useTodosStore();
     const { noteInEditMode } = useNoteInEditModeStore();
+    const { isListView } = useListViewStore();
 
     const filteredItems = notesItems.filter(item => {
         if (selectedLabel !== null) {
@@ -89,7 +91,7 @@ export default function () {
             return true;
         }
     });
-    width = isMenuBarOpen
+    width = isListView
         ? isLaptop || isLaptopL
             ? theme.spacing(75)
             : "100%"
@@ -110,7 +112,7 @@ export default function () {
                 <div
                     className={classes.todosWrapper}
                     style={{
-                        columnCount: isMenuBarOpen ? 1 : numberOfColumns,
+                        columnCount: isListView ? 1 : numberOfColumns,
                         width: width
                     }}
                 >
@@ -119,7 +121,7 @@ export default function () {
                             <div
                                 key={noteItem.id}
                                 className={classes.todoWrapper}
-                                style={{ width: isMobile || isMenuBarOpen ? "100%" : null }}
+                                style={{ width: isMobile || isListView ? "100%" : null }}
                             >
                                 <TodoItem
                                     noteItem={noteItem}
