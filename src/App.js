@@ -8,7 +8,9 @@ import { CssBaseline } from "@material-ui/core";
 import { UserProvider } from './shared/contexts/userProvider';
 import { AppThemeProvider } from './shared/contexts/themeContext';
 
-import Main from './pages/main';
+import Main from './pages/Main/Main';
+import Login from './pages/Login/Login';
+import Register from './pages/Register/Register';
 
 class App extends Component {
   render() {
@@ -21,15 +23,16 @@ class App extends Component {
             content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no"
           />
         </Helmet>
-        {/* <Router> */}
         <AppThemeProvider>
           <UserProvider>
             <CssBaseline />
-
-            <Main />
+            <Router>
+              <Main path="/" />
+              <Login path="/login" />
+              <Register path="/register" />
+            </Router>
           </UserProvider>
         </AppThemeProvider>
-        {/* </Router> */}
       </React.Fragment>
     );
   }

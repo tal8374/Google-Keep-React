@@ -1,12 +1,12 @@
 import React from 'react';
 
-import { ListViewProvider } from '../shared/contexts/listViewProvider';
-import { MenuBarProvider } from '../shared/contexts/menuBarProvider';
-import { LabelsProvider, TodosProvider, SelectedLabelProvider, NoteInEditModeProvider } from '../shared/contexts/todosProvider';
+import { ListViewProvider } from '../../shared/contexts/listViewProvider';
+import { MenuBarProvider } from '../../shared/contexts/menuBarProvider';
+import { LabelsProvider, TodosProvider, SelectedLabelProvider, NoteInEditModeProvider } from '../../shared/contexts/todosProvider';
 
-import AppNavBar from '../parts/AppNavbar/AppNavbar';
-import AppSideBar from '../parts/AppNavbar/AppSideBar/AppSideBar';
-import NotesArea from '../parts/NotesArea/NotesArea';
+import AppNavBar from '../../parts/AppNavbar/AppNavbar';
+import AppSideBar from '../../parts/AppNavbar/AppSideBar/AppSideBar';
+import NotesArea from '../../parts/NotesArea/NotesArea';
 
 import Container from "@material-ui/core/Container";
 import Box from "@material-ui/core/Box";
