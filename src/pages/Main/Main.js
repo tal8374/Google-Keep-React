@@ -8,32 +8,43 @@ import AppNavBar from '../../parts/AppNavbar/AppNavbar';
 import AppSideBar from '../../parts/AppNavbar/AppSideBar/AppSideBar';
 import NotesArea from '../../parts/NotesArea/NotesArea';
 
+import { getTodosAndLabels } from "../../shared/gql";
+
 import Container from "@material-ui/core/Container";
 import Box from "@material-ui/core/Box";
 
-const Main = () => {
+import { useQuery } from "urql";
 
-    return (
-        <ListViewProvider>
-        <MenuBarProvider>
-          <LabelsProvider>
-            <TodosProvider>
-              <SelectedLabelProvider>
-                <NoteInEditModeProvider>
-                  <AppNavBar />
-                  <AppSideBar />
-                  <Container maxWidth={false}>
-                    <Box mt={8}>
-                      <NotesArea />
-                    </Box>
-                  </Container>
-                </NoteInEditModeProvider>
-              </SelectedLabelProvider>
-            </TodosProvider>
-          </LabelsProvider>
-        </MenuBarProvider>
-      </ListViewProvider>
-    );
+const Main = () => {
+  const [result] = useQuery({ query: getTodosAndLabels, requestPolicy: "network-only", variables: {
+    "userInput": {
+      "email": "a@gmail.com"
+    }
+    
+  } });
+  console.log(result)
+
+  return (
+    <ListViewProvider>
+      <MenuBarProvider>
+        <LabelsProvider>
+          <TodosProvider>
+            <SelectedLabelProvider>
+              <NoteInEditModeProvider>
+                <AppNavBar />
+                <AppSideBar />
+                <Container maxWidth={false}>
+                  <Box mt={8}>
+                    <NotesArea />
+                  </Box>
+                </Container>
+              </NoteInEditModeProvider>
+            </SelectedLabelProvider>
+          </TodosProvider>
+        </LabelsProvider>
+      </MenuBarProvider>
+    </ListViewProvider>
+  );
 
 }
 
