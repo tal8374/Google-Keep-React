@@ -15,7 +15,7 @@
     "apollo-link-context": "^1.0.20",
     "apollo-link-http": "^1.5.17",
     "apollo-link-ws": "^1.0.20",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "axios-hook": "0.0.6",
     "axios-hooks": "^2.0.0",
     "cjs": "0.0.11",
