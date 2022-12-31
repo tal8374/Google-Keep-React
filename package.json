@@ -25,7 +25,7 @@
     "react-apollo": "^3.1.5",
     "react-dom": "^16.13.1",
     "react-helmet": "^6.1.0",
-    "react-scripts": "0.9.5",
+    "react-scripts": "5.0.1",
     "save": "^2.4.0",
     "subscriptions-transport-ws": "^0.9.17",
     "urql": "^1.9.8"
